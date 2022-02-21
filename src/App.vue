@@ -1,10 +1,181 @@
 <template>
   <div>
-    <h1>Empty Project</h1>
-    <router-view/>
+    <RouterView />
   </div>
 </template>
 
+<script>
+
+export default {
+
+};
+</script>
+
 <style lang="scss">
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  :root {
+    font-size: 16px;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+img {
+    display: block;
+  }
+
+li {
+    list-style-type: none;
+  }
+
+button, select{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
+  .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 960px) {
+  .product.simple .img-content {
+    height: 100px;
+  }
+
+  .product.simple .img-content {
+    height: 100px;
+  }
+
+  .center-side .center-nav {
+    padding: 1.6rem 1rem;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1366px) {
+  :root {
+    font-size: 10px;
+  }
+  .product.simple .img-content {
+    height: 120px;
+  }
+
+  .center-side .center-nav {
+    padding: 1.6rem 2rem;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1420px) {
+  :root {
+    font-size: 11px;
+  }
+  .product.simple .img-content {
+    height: 140px;
+  }
+}
+
+@media (min-width: 1420px) and (max-width: 1620px) {
+  :root {
+    font-size: 12px;
+  }
+  .product.simple .img-content {
+    height: 160px;
+  }
+}
+
+@media (min-width: 1620px) and (max-width: 1820px) {
+  :root {
+    font-size: 14px;
+  }
+  .product.simple .img-content {
+    height: 180px;
+  }
+}
+
+@media (min-width: 1820px) and (max-width: 1920px) {
+  :root {
+    font-size: 16px;
+  }
+  .product.simple .img-content {
+    height: 200px;
+  }
+  .center-side .center-nav {
+    padding: 1.6rem 4rem;
+  }
+}
+
+@media (min-width: 1920px) and (max-width: 2140px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 2140px) and (max-width: 2340px) {
+  :root {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 2340px) and (max-width: 2540px) {
+  :root {
+    font-size: 24px;
+  }
+  .center-side .center-nav {
+    padding: 1.6rem 6rem;
+  }
+}
+
+@media (min-width: 2540px) and (max-width: 2840px) {
+  :root {
+    font-size: 26px;
+  }
+  .center-side .center-nav {
+    padding: 1.6rem 6rem;
+  }
+}
+
+@media (min-width: 2840px) and (max-width: 3440px) {
+  :root {
+    font-size: 32px;
+  }
+  .center-side .center-nav {
+    padding: 1.6rem 4rem;
+  }
+}
+
+@media (min-width: 3440px) and (max-width: 3840px) {
+  :root {
+    font-size: 36px;
+  }
+  .center-side .center-nav {
+    padding: 1.6rem 4rem;
+  }
+}
+
+@media (min-width: 3841px) {
+  .center-side .center-nav {
+    padding: 1.6rem 6rem;
+  }
+}
+
+.slider-indicators {
+
+  .slider-indicator-icon {
+    display: block;
+    width: 200px;
+    background-color: white;
+  }
+}
 
 </style>
