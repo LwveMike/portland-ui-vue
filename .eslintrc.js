@@ -4,6 +4,7 @@ module.exports = {
     node: true,
   },
   extends: [
+    'plugin:vue/vue3-recommended',
     'plugin:vue/essential',
     '@vue/airbnb',
   ],
