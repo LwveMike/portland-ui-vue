@@ -169,13 +169,57 @@ button, select{
   }
 }
 
-.slider-indicators {
+.slider {
+  .slider-btn {
+    visibility: hidden;
 
-  .slider-indicator-icon {
-    display: block;
-    width: 200px;
-    background-color: white;
+    &::before {
+      visibility: visible;
+      font-family: 'Font Awesome 5 Pro';
+      font-size: 2rem;
+      position: absolute;
+      display: grid;
+      place-items: center center;
+      border: 3px solid $arrow-border;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      color: white;
+
+    }
+
+    &.slider-btn-left {
+      &::before {
+        content: '\f104';
+        left: 2rem;
+      }
+    }
+
+    &.slider-btn-right {
+      &::before {
+        content: '\f105';
+        right: 2rem;
+      }
+    }
+  }
+
+  .slider-icon {
+    border-radius: 50%;
+    border: 2px solid $arrow-border;
+    padding: 2rem;
+  }
+
+  .slider-indicators {
+    span.slider-indicator-icon {
+      padding: 0.2rem;
+      border: 3px solid #7f7f7f;
+      margin: 0.3rem;
+
+      &.slider-indicator-active {
+        background-color: white;
+        border: 3px solid white;
+      }
+    }
   }
 }
-
 </style>
