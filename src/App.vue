@@ -176,13 +176,13 @@ button, select{
     &::before {
       visibility: visible;
       font-family: 'Font Awesome 5 Pro';
-      font-size: 2rem;
+      font-size: 1.5rem;
       position: absolute;
       display: grid;
       place-items: center center;
       border: 3px solid $arrow-border;
-      width: 4rem;
-      height: 4rem;
+      width: 3rem;
+      height: 3rem;
       border-radius: 50%;
       color: white;
 
@@ -221,5 +221,15 @@ button, select{
       }
     }
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>
