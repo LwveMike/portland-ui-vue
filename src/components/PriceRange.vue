@@ -49,7 +49,6 @@ export default {
   align-items: center;
   margin-right: 2rem;
   justify-content: space-around;
-  flex: 1;
 
   .price-range-title {
     margin-right: 1rem;

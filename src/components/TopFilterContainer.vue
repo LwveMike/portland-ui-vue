@@ -4,6 +4,7 @@
     <div class="filter-area">
       <KeywordsInput />
       <PriceRange />
+      <ShippingInput />
     </div>
     <ShippingSelect />
   </div>
@@ -15,6 +16,7 @@ import MatchSelect from './MatchSelect.vue';
 import KeywordsInput from './KeywordsInput.vue';
 import PriceRange from './PriceRange.vue';
 import ShippingSelect from './ShippingSelect.vue';
+import ShippingInput from './ShippingInput.vue';
 
 export default {
   name: 'TopFilterContainer',
@@ -23,6 +25,7 @@ export default {
     KeywordsInput,
     PriceRange,
     ShippingSelect,
+    ShippingInput,
   },
 
 };
@@ -40,8 +43,12 @@ export default {
     border-right: 1px solid $delimiter-color;
     padding: 1rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+
+    * {
+      flex: 1;
+    }
 
     &:last-child {
       border-right: none;

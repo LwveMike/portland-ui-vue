@@ -1,19 +1,19 @@
 <template>
   <div class="website-body">
     <TopFilterContainer />
-    <div class="main-body" />
-    <div id="pagination" />
-    <div id="recommended" />
+    <MainBody />
   </div>
 </template>
 
 <script>
 import TopFilterContainer from './TopFilterContainer.vue';
+import MainBody from './MainBody.vue';
 
 export default {
   name: 'HomeBody',
   components: {
     TopFilterContainer,
+    MainBody,
   },
 
 };

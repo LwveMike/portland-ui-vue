@@ -28,7 +28,6 @@ export default {
   display: flex;
   align-items: center;
   margin-right: 2rem;
-  flex: 1.2;
 
   .keywords-title {
     margin-right: 1rem;
