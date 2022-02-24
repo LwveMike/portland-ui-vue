@@ -1,16 +1,25 @@
 <template>
   <div class="left-filter-section">
     <Accordion />
+    <AvailableFilter />
+    <ConditionFilter />
+    <DeliveryOptions />
   </div>
 </template>
 
 <script>
 import Accordion from './Accordion.vue';
+import AvailableFilter from './AvailableFilter.vue';
+import ConditionFilter from './ConditionFilter.vue';
+import DeliveryOptions from './DeliveryOptions.vue';
 
 export default {
   name: 'LeftFilterSection',
   components: {
     Accordion,
+    AvailableFilter,
+    ConditionFilter,
+    DeliveryOptions,
   },
 
 };

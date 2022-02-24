@@ -1,18 +1,20 @@
 <template>
   <div class="main-body">
     <LeftFilterSection />
-    <div class="products-container" />
+    <ProductsContainer />
   </div>
 </template>
 
 <script>
 
 import LeftFilterSection from './LeftFilterSection.vue';
+import ProductsContainer from './ProductsContainer.vue';
 
 export default {
   name: 'MainBody',
   components: {
     LeftFilterSection,
+    ProductsContainer,
   },
 
 };

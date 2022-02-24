@@ -4,6 +4,7 @@
       <AccordionSection
         :key="index"
         :category="category"
+        :current-tab.sync="currentTab"
       />
     </template>
   </div>
@@ -28,6 +29,7 @@ export default {
         { sectionTitle: 'Sale', options: ['cell phones', 'cameras', 'computers'] },
 
       ],
+      currentTab: '',
     };
   },
 

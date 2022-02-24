@@ -4,7 +4,7 @@
   >
     <a
       class="visual"
-      @click="handleClick"
+      @click="openSection"
     >
       <p class="section-title">
         {{ category.sectionTitle }}
@@ -14,7 +14,7 @@
         scale="0.8"
         class="section-arrow"
         :class="{
-          'turned': opened
+          'turned': isOpened
         }"
       />
     </a>
@@ -22,9 +22,9 @@
       class="section-data section1-data"
       :class="{
         'visible':
-          !opened,
+          !isOpened,
         'invisible':
-          opened
+          isOpened
       }"
     >
       <template v-for="(option, index) in category.options">
@@ -41,7 +41,6 @@
 
 import Icon from 'vue-awesome/components/Icon';
 import 'vue-awesome/icons/chevron-down';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'AccordionSection',
@@ -53,26 +52,24 @@ export default {
       type: Object,
       required: true,
     },
+    currentTab: {
+      type: String,
+      required: true,
+    },
 
-  },
-  data() {
-    return {
-      opened: false,
-    };
   },
 
   computed: {
-    ...mapGetters(['getCurrent']),
+    isOpened() {
+      return this.currentTab.toLowerCase() === this.category.sectionTitle.toLowerCase();
+    },
   },
 
   methods: {
-    handleClick() {
-      if (this.opened === false) this.$store.commit('changeCurrent', { current: this.opened });
-      this.opened = !this.opened;
-
-      if (this.getCurrent !== null) {
-        this.$store.state.current = false;
-      }
+    openSection() {
+      if (this.isOpened === true) {
+        this.$emit('update:currentTab', '');
+      } else { this.$emit('update:currentTab', this.category.sectionTitle.toLowerCase()); }
     },
   },
 
