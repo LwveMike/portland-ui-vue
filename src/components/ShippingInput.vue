@@ -1,11 +1,14 @@
 <template>
-  <div class="shipping-container">
-    <input
-      v-model="checked"
+  <div
+    class="shipping-container"
+    @click="handleClick"
+  >
+    <div
       class="radio-custom icon"
-      name="radio-group"
-      type="checkbox"
-    >
+      :class="{
+        'actual-input-selected': checked
+      }"
+    />
     <label
       for="free"
       class="radio-custom-label"
@@ -16,10 +19,16 @@
 <script>
 export default {
   name: 'ShippingInput',
-  data() {
-    return {
-      checked: false,
-    };
+  props: {
+    checked: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  methods: {
+    handleClick() {
+      this.$emit('update:checked', !this.checked);
+    },
   },
 
 };
@@ -37,25 +46,19 @@ export default {
   }
 
   .radio-custom {
-    opacity: 0;
-    position: absolute;
+    content: '';
+    background: #fff;
+    border: 2px solid #ddd;
+    display: flex;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 50%;
+    width: 1.6rem;
+    height: 1.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    vertical-align: middle;
-    margin: 5px;
-    cursor: pointer;
-    flex: 1;
-
-    &:checked {
-      content: "\f00c";
-      font-family: "Font Awesome 5 Pro";
-      color: $checkmark-color;
-      background-color: $checkmark-background;
-      font-size: 0.8rem;
-      border: none;
-
-    }
 
     .radio-custom-label {
       display: flex;
@@ -66,35 +69,25 @@ export default {
       cursor: pointer;
     }
 
-    & + .radio-custom-label:before {
-      content: '';
-      background: #fff;
-      border: 2px solid #ddd;
-      display: flex;
-      vertical-align: middle;
-      width: 20px;
-      height: 20px;
-      padding: 2px;
-      margin-right: 10px;
-      text-align: center;
-      border-radius: 50%;
-      width: 1.6rem;
-      height: 1.6rem;
+  }
+}
+
+.actual-input-selected {
       display: flex;
       justify-content: center;
       align-items: center;
-    }
 
-    &:checked  + .radio-custom-label:before {
-      content: "\f00c";
-      font-family: "Font Awesome 5 Pro";
-      color: $checkmark-color;
-      background-color: $checkmark-background;
-      font-size: 0.8rem;
-      border: none;
-    }
+      &::before {
+        content: "\f00c";
+        font-family: "Font Awesome 5 Pro";
+        color: $checkmark-color;
+        background-color: $checkmark-background;
+        font-size: 0.8rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        border-radius: 50%;
 
-  }
+      }
 }
 
 </style>

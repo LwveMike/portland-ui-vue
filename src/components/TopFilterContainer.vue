@@ -4,7 +4,7 @@
     <div class="filter-area">
       <KeywordsInput />
       <PriceRange />
-      <ShippingInput />
+      <ShippingInput :checked.sync="checked" />
     </div>
     <ShippingSelect />
   </div>
@@ -26,6 +26,11 @@ export default {
     PriceRange,
     ShippingSelect,
     ShippingInput,
+  },
+  data() {
+    return {
+      checked: false,
+    };
   },
 
 };
