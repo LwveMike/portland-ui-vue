@@ -1,4 +1,5 @@
-import apiFetchProducts from '../../api';
+// import apiFetchProducts from '../../api';
+import { apiFetchResources } from '../../api';
 
 const productsModule = {
   state: () => ({
@@ -18,7 +19,8 @@ const productsModule = {
 
   actions: {
     async fetchProducts({ commit }) {
-      const products = await apiFetchProducts();
+      const res = await apiFetchResources();
+      const { products } = res;
 
       if (products) {
         commit('assignProducts', { products });

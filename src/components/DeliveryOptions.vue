@@ -59,6 +59,13 @@ export default {
     font-weight: 600;
     letter-spacing: 2px;
   }
+
+  .section {
+
+    .visual {
+      padding-block: 0.5rem;
+    }
+  }
 }
 
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <template v-for="(option, index) in options">
+    <template v-for="([key], index) in getConditions">
       <BrandSection
         :key="index"
-        :title="option"
+        :title="key"
       />
     </template>
   </div>
@@ -11,6 +11,7 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
 import BrandSection from './BrandSection.vue';
 
 export default {
@@ -18,13 +19,9 @@ export default {
   components: {
     BrandSection,
   },
-  data() {
-    return {
-      options: [
-        'New', 'Manufacturer Refurbished', 'Seller Refurbished', 'Used', 'For Parts or Not Working',
+  computed: {
+    ...mapGetters(['getConditions']),
 
-      ],
-    };
   },
 
 };

@@ -2,18 +2,24 @@
   <div class="website-body">
     <TopFilterContainer />
     <MainBody />
+    <PageNumbers />
+    <RecommendedSection />
   </div>
 </template>
 
 <script>
 import TopFilterContainer from './TopFilterContainer.vue';
 import MainBody from './MainBody.vue';
+import PageNumbers from './PageNumbers.vue';
+import RecommendedSection from './RecommendedSection.vue';
 
 export default {
   name: 'HomeBody',
   components: {
     TopFilterContainer,
     MainBody,
+    PageNumbers,
+    RecommendedSection,
   },
 
 };

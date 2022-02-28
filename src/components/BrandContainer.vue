@@ -1,10 +1,10 @@
 <template>
   <div class="section">
-    <template v-for="(option, index) in options">
+    <template v-for="([key, value], index) in getBrands">
       <BrandSection
         :key="index"
-        :title="option.title"
-        :quan="option.quan"
+        :title="key"
+        :quan="value"
       />
     </template>
   </div>
@@ -12,6 +12,7 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
 import BrandSection from './BrandSection.vue';
 
 export default {
@@ -29,6 +30,10 @@ export default {
 
       ],
     };
+  },
+
+  computed: {
+    ...mapGetters(['getBrands']),
   },
 
 };

@@ -3,6 +3,8 @@
     <Navigation />
     <Slider />
     <HomeBody />
+    <Reviews />
+    <Footer />
   </div>
 </template>
 
@@ -11,6 +13,8 @@ import { mapActions } from 'vuex';
 import Navigation from '../components/Navigation.vue';
 import Slider from '../components/Slider.vue';
 import HomeBody from '../components/HomeBody.vue';
+import Reviews from '../components/Reviews.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: 'Home',
@@ -18,14 +22,16 @@ export default {
     Navigation,
     Slider,
     HomeBody,
+    Reviews,
+    Footer,
   },
 
   beforeMount() {
-    console.log(this.fetchProducts());
+    this.fetchResources();
   },
 
   methods: {
-    ...mapActions(['fetchProducts']),
+    ...mapActions(['fetchResources']),
   },
 };
 </script>

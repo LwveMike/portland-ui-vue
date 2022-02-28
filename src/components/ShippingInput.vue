@@ -39,6 +39,7 @@ export default {
 .shipping-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   label {
     display: flex;
@@ -86,6 +87,8 @@ export default {
         width: 1.6rem;
         height: 1.6rem;
         border-radius: 50%;
+        display: grid;
+        place-items: center center;
 
       }
 }

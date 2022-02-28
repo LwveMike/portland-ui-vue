@@ -31,8 +31,8 @@ export default {
       required: true,
     },
     quan: {
-      type: String,
-      default: '',
+      type: Number,
+      default: null,
     },
   },
   data() {
@@ -84,6 +84,7 @@ export default {
       font-weight: 700;
       display: flex;
       align-items: center;
+      text-transform: capitalize;
     }
 
     label {
