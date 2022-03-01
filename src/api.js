@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const pUrl = 'http://localhost:3000/products';
+const aUrl = 'http://localhost:3000/auth';
 
 const descendingSort = (a, b) => {
   const dateA = new Date(a.createdAt);
@@ -59,7 +60,58 @@ const apiFetchResources = async () => {
   return false;
 };
 
+const apiFetchUserData = async () => {
+  try {
+    const res = await axios.get(`${aUrl}/get-user-data`, {
+      withCredentials: true,
+    });
+
+    if (res.data !== undefined) {
+      return res.data;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+const apiLoginUser = async (payload) => {
+  try {
+    const res = await axios.post(`${aUrl}/login`, {
+      username: payload.username,
+      password: payload.password,
+    });
+
+    if (res.data.fullfilled) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+const apiRegisterUser = async (payload) => {
+  try {
+    const res = await axios.post(`${aUrl}/register`, {
+      username: payload.username,
+      password: payload.password,
+    });
+
+    if (res.data.fullfilled) {
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
 export {
   apiFetchProducts,
   apiFetchResources,
+  apiFetchUserData,
+  apiLoginUser,
+  apiRegisterUser,
 };

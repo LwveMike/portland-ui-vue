@@ -28,10 +28,11 @@ export default {
 
   beforeMount() {
     this.fetchResources();
+    this.getAuthData();
   },
 
   methods: {
-    ...mapActions(['fetchResources']),
+    ...mapActions(['fetchResources', 'getAuthData']),
   },
 };
 </script>

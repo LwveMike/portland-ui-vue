@@ -47,10 +47,15 @@
         </p>
       </div>
 
-      <button class="sign-in-btn">
+      <button
+        class="sign-in-btn"
+        @click="toggleModal"
+      >
         sign in
       </button>
     </div>
+
+    <AuthModal :show.sync="show" />
   </div>
 </template>
 
@@ -59,6 +64,7 @@
 import Icon from 'vue-awesome/components/Icon';
 import 'vue-awesome/icons/bars';
 import 'vue-awesome/icons/shopping-cart';
+import AuthModal from './AuthModal.vue';
 
 import MainNavigationItem from './MainNavigationItem.vue';
 
@@ -70,6 +76,7 @@ export default {
   components: {
     VIcon: Icon,
     MainNavigationItem,
+    AuthModal,
   },
 
   data() {
@@ -79,7 +86,14 @@ export default {
         'Home', 'Devices', 'Delivery & Payment', 'Guarantee', 'About Us',
       ],
       quantity: 0,
+      show: false,
     };
+  },
+
+  methods: {
+    toggleModal() {
+      this.show = !this.show;
+    },
   },
 
 };
@@ -90,7 +104,7 @@ export default {
     padding: 0 $global-padding;
     display: flex;
     border-bottom: 1px solid $bars-color;
-
+    position: relative;
     .left-side {
       display: flex;
       flex: 3;

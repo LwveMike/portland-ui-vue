@@ -5,6 +5,7 @@ import productsModule from './modules/productsModule';
 import brandsModule from './modules/brandsModule';
 import conditionsModule from './modules/conditionsModule';
 import hotModule from './modules/hotModule';
+import authModule from './modules/authModule';
 import { apiFetchResources } from '../api';
 
 Vue.use(Vuex);
@@ -39,5 +40,6 @@ export default new Vuex.Store({
     brandsModule,
     conditionsModule,
     hotModule,
+    authModule,
   },
 });
