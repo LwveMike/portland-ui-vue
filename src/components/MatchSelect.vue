@@ -4,7 +4,10 @@
       for="match"
       class="match-title"
     >sort by :</label>
-    <CustomSelect :options="options" />
+    <CustomSelect
+      :options="options"
+      who="sorting"
+    />
   </div>
 </template>
 
@@ -20,7 +23,7 @@ export default {
   data() {
     return {
       options: [
-        'best match', 'no match', '1 match',
+        'ascending', 'descending',
       ],
     };
   },

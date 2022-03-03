@@ -3,9 +3,12 @@
     <label
       for="location"
       class="location-title"
-    >ship to :</label>
+    >type :</label>
 
-    <CustomSelect :options="options" />
+    <CustomSelect
+      :options="options"
+      who="type"
+    />
   </div>
 </template>
 
@@ -21,7 +24,7 @@ export default {
   data() {
     return {
       options: [
-        'usa', 'japan', 'china',
+        'all', 'simple', 'promoted', 'complicated',
       ],
     };
   },

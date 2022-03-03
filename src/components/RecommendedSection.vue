@@ -4,7 +4,7 @@
       best sellers
     </p>
     <div class="recommended-products">
-      <template v-for="(product, index) in getHot">
+      <template v-for="(product, index) in hot">
         <RecommendedProduct
           :key="index"
           :product="product"
@@ -16,7 +16,6 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
 import RecommendedProduct from './RecommendedProduct.vue';
 
 export default {
@@ -24,9 +23,15 @@ export default {
   components: {
     RecommendedProduct,
   },
+  data() {
+    return {
+      hot: [{
+        name: 'sdfsd',
+        url: 'sfds',
+        price: 12,
 
-  computed: {
-    ...mapGetters(['getHot']),
+      }],
+    };
   },
 
 };

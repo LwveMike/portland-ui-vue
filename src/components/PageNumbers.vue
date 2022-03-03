@@ -13,7 +13,7 @@
       class="
       page-numbers"
     >
-      <template v-for="(page, index) in pages">
+      <template v-for="(page, index) in getComputedPages">
         <PageNumberIndividual
           :key="index"
           :page="page"
@@ -42,15 +42,21 @@ import PageNumberIndividual from './PageNumberIndividual.vue';
 
 export default {
   name: 'Pagination',
+  inject: ['getPages'],
   components: {
     VIcon: Icon,
     PageNumberIndividual,
   },
   data() {
     return {
-      pages: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       active: 1,
     };
+  },
+
+  computed: {
+    getComputedPages() {
+      return this.getPages();
+    },
   },
 
   methods: {
@@ -58,7 +64,7 @@ export default {
       if (direction === 'down' && this.active > 1) {
         this.active -= 1;
         this.$router.push({ query: { page: this.active } });
-      } else if (direction === 'up' && this.active < 9) {
+      } else if (direction === 'up' && this.active < this.getComputedPages.length) {
         this.active += 1;
         this.$router.push({ query: { page: this.active } });
       }

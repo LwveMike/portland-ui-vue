@@ -198,25 +198,18 @@ export default {
   left: 0;
   top: 0;
   z-index: 99999;
-
   background-color: rgba(255,255,255,0.8);
-
   animation: fade 200ms linear;
 
   .auth-modal {
     position: absolute;
     background: white;
     border-radius: 6px;
-
     left: 50%;
     top: 50%;
-
     transform: translate(-50%, -50%);
-
     animation: slide 300ms linear;
-
     width: 30%;
-
     padding-bottom: 2rem;
 
     box-shadow: 0px 4px 20px 0px rgba(0,0,0,0.3);

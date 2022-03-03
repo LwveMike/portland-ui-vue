@@ -44,9 +44,14 @@ export default {
   components: {
     VIcon: Icon,
   },
+  inject: ['changeSorting', 'changeType'],
   props: {
     options: {
       type: Array,
+      required: true,
+    },
+    who: {
+      type: String,
       required: true,
     },
   },
@@ -63,6 +68,11 @@ export default {
     },
     changeValue(option) {
       this.selected = option;
+      if (this.who === 'sorting') {
+        this.changeSorting(option);
+      } else {
+        this.changeType(option);
+      }
     },
     handleBlur() {
       this.opened = false;

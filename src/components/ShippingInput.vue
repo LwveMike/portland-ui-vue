@@ -12,13 +12,14 @@
     <label
       for="free"
       class="radio-custom-label"
-    >Free Shipping</label>
+    >Free Shipment</label>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ShippingInput',
+  inject: ['changeFreeShipment'],
   props: {
     checked: {
       type: Boolean,
@@ -28,6 +29,7 @@ export default {
   methods: {
     handleClick() {
       this.$emit('update:checked', !this.checked);
+      this.changeFreeShipment(!this.checked);
     },
   },
 

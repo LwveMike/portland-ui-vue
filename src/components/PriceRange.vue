@@ -3,36 +3,26 @@
     <p class="price-range-title">
       price
     </p>
-    <CustomInput
-      type="number"
-      min="0"
-      max="3000"
-      value-type="min"
-    />
+    <MinInput />
     <div class="dash-icon">
       -
     </div>
-    <CustomInput
-      type="number"
-      min="1000"
-      max="9999"
-      value-type="max"
-    />
+    <MaxInput />
   </div>
 </template>
 
 <script>
-import CustomInput from './CustomInput.vue';
+import MinInput from './MinInput.vue';
+import MaxInput from './MaxInput.vue';
 
 export default {
   name: 'PriceRange',
   components: {
-    CustomInput,
+    MinInput,
+    MaxInput,
   },
   data() {
     return {
-      minValue: 1,
-      maxValue: 1000,
       stylePass: {
         width: '5rem',
       },

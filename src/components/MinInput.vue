@@ -1,10 +1,8 @@
 <template>
   <div>
     <input
-      v-model="value"
-      type="text"
+      v-model.number="value"
       class="input-class"
-      :placeholder="placeholder"
     >
   </div>
 </template>
@@ -12,26 +10,29 @@
 <script>
 
 export default {
-  name: 'CustomInput',
-  inject: ['changeKeywords'],
-  props: {
-    placeholder: {
-      type: String,
-      required: false,
-      default: '',
-    },
-  },
+  name: 'MinInput',
+  inject: ['getMinPrice', 'changeMinPrice'],
 
   data() {
     return {
-      value: '',
+      value: 0,
     };
+  },
+
+  computed: {
+    getComputedMinPrice() {
+      return this.getMinPrice();
+    },
   },
 
   watch: {
     value() {
-      this.changeKeywords(this.value);
+      this.changeMinPrice(this.value);
     },
+  },
+
+  beforeMount() {
+    this.value = this.getComputedMinPrice;
   },
 
 };

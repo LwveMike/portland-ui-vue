@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <template v-for="([key, value], index) in getBrands">
+    <template v-for="([key, value], index) in getComputedBrands">
       <BrandSection
         :key="index"
         :title="key"
@@ -12,28 +12,19 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
 import BrandSection from './BrandSection.vue';
 
 export default {
   name: 'BrandContainer',
+  inject: ['getBrands'],
   components: {
     BrandSection,
   },
-  data() {
-    return {
-      options: [
-        { title: 'Apple', quan: '32' },
-        { title: 'JBL', quan: '14' },
-        { title: 'Bose', quan: '3' },
-        { title: 'Nest', quan: '5' },
-
-      ],
-    };
-  },
 
   computed: {
-    ...mapGetters(['getBrands']),
+    getComputedBrands() {
+      return this.getBrands();
+    },
   },
 
 };

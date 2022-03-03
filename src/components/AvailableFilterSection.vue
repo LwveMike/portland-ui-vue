@@ -2,11 +2,11 @@
   <div class="section">
     <div class="visual">
       <div class="section-select">
-        <template v-for="(variant, index) in variants">
+        <template v-for="([key, value], index) in getComputedAvailable">
           <SectionSelectVariant
             :key="index"
-            :from-where="variant.fromWhere"
-            :quan="variant.quan"
+            :from-where="key"
+            :quan="value"
             :selected.sync="selected"
           />
         </template>
@@ -21,6 +21,7 @@ import SectionSelectVariant from './SectionSelectVariant.vue';
 
 export default {
   name: 'AvailableFilterSection',
+  inject: ['getAvailable'],
   components: {
     SectionSelectVariant,
   },
@@ -28,12 +29,13 @@ export default {
   data() {
     return {
       selected: '',
-      variants: [
-        { fromWhere: 'In Storage', quan: 45 },
-        { fromWhere: 'In Online-Shop', quan: 12 },
-      ],
-
     };
+  },
+
+  computed: {
+    getComputedAvailable() {
+      return this.getAvailable();
+    },
   },
 
 };

@@ -15,6 +15,24 @@ const descendingSort = (a, b) => {
   return 0;
 };
 
+const ascendingPrice = (a, b) => {
+  if (a.price > b.price) {
+    return 1;
+  } if (a.price < b.price) {
+    return -1;
+  }
+  return 0;
+};
+
+const descendingPrice = (a, b) => {
+  if (a.price > b.price) {
+    return -1;
+  } if (a.price < b.price) {
+    return 1;
+  }
+  return 0;
+};
+
 const organize = (products, domain) => {
   const organized = new Map();
 
@@ -36,6 +54,43 @@ const apiFetchProducts = async () => {
     const products = res.data;
 
     products.sort(descendingSort);
+    return products;
+  } catch (error) {
+    return false;
+  }
+};
+
+const apiFetchProductsWithFilters = async (filters) => {
+  try {
+    const res = await axios.get(pUrl);
+
+    let products = res.data;
+
+    if (filters.sorting === 'ascending') {
+      products.sort(ascendingPrice);
+    } else if (filters.sorting === 'descending') {
+      products.sort(descendingPrice);
+    }
+
+    if (filters.type !== 'all') {
+      products = products.filter((product) => product.type === filters.type);
+    }
+
+    if (filters.minprice !== undefined && filters.maxprice !== undefined) {
+      products = products.filter((product) => product.price > filters.minprice
+      && product.price < filters.maxprice);
+    }
+
+    if (filters.freeshipment) {
+      products = products.filter((product) => product.shipment === 0);
+    }
+
+    if (filters.keywords !== '') {
+      products = products.filter(
+        (product) => product.name.toLowerCase().includes(filters.keywords.toLowerCase()),
+      );
+    }
+
     return products;
   } catch (error) {
     return false;
@@ -114,4 +169,6 @@ export {
   apiFetchUserData,
   apiLoginUser,
   apiRegisterUser,
+  apiFetchProductsWithFilters,
+  organize,
 };

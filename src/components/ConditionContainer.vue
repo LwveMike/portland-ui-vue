@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="([key], index) in getConditions">
+    <template v-for="([key], index) in getComputedConditions">
       <BrandSection
         :key="index"
         :title="key"
@@ -11,17 +11,18 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
 import BrandSection from './BrandSection.vue';
 
 export default {
   name: 'ConditionContainer',
+  inject: ['getConditions'],
   components: {
     BrandSection,
   },
   computed: {
-    ...mapGetters(['getConditions']),
-
+    getComputedConditions() {
+      return this.getConditions();
+    },
   },
 
 };

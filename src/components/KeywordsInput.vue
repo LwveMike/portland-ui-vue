@@ -4,7 +4,6 @@
       keywords
     </p>
     <CustomInput
-      type="text"
       placeholder="Tablet"
     />
   </div>
