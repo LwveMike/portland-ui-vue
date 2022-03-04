@@ -5,6 +5,7 @@
     <HomeBody />
     <Reviews />
     <Footer />
+    <UserProfile />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import Slider from '../components/Slider.vue';
 import HomeBody from '../components/HomeBody.vue';
 import Reviews from '../components/Reviews.vue';
 import Footer from '../components/Footer.vue';
+import UserProfile from '../components/UserProfile.vue';
 
 export default {
   name: 'Home',
@@ -24,6 +26,7 @@ export default {
     HomeBody,
     Reviews,
     Footer,
+    UserProfile,
   },
 
   data() {
@@ -237,3 +240,10 @@ export default {
 
 };
 </script>
+
+<style lang="scss" scoped>
+
+.home {
+  display: relative;
+}
+</style>
