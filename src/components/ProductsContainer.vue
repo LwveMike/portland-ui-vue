@@ -27,7 +27,6 @@ export default {
     getComputedProducts() {
       return this.getProducts();
     },
-
   },
 
 };

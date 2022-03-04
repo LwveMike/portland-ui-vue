@@ -36,7 +36,9 @@ export default {
   methods: {
     handleClick() {
       this.$emit('update:active', this.page);
-      this.$router.push({ query: { page: this.page } });
+      if (this.$route.query.page !== this.page.toString()) {
+        this.$router.push({ query: { page: this.page } });
+      }
     },
   },
 

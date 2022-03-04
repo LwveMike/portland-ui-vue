@@ -47,7 +47,10 @@
             </div>
 
             <div class="btn-group">
-              <button class="submit">
+              <button
+                class="submit"
+                @click="handleLogin"
+              >
                 Submit
               </button>
 
@@ -181,6 +184,12 @@ export default {
 
     async handleRegister() {
       await this.register({ username: this.reg.username, password: this.reg.password });
+      this.$emit('update:show', false);
+    },
+
+    async handleLogin() {
+      await this.login({ username: this.logi.username, password: this.logi.password });
+      this.$emit('update:show', false);
     },
 
     ...mapActions(['login', 'register']),

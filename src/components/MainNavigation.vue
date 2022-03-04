@@ -47,12 +47,22 @@
         </p>
       </div>
 
-      <button
-        class="sign-in-btn"
-        @click="toggleModal"
-      >
-        sign in
-      </button>
+      <template v-if="!getIsLogged">
+        <button
+          class="sign-in-btn"
+          @click="toggleModal"
+        >
+          sign in
+        </button>
+      </template>
+      <template v-else>
+        <button
+          class="sign-in-btn"
+          @click="logout"
+        >
+          logout
+        </button>
+      </template>
     </div>
 
     <AuthModal :show.sync="show" />
@@ -64,6 +74,7 @@
 import Icon from 'vue-awesome/components/Icon';
 import 'vue-awesome/icons/bars';
 import 'vue-awesome/icons/shopping-cart';
+import { mapGetters, mapActions } from 'vuex';
 import AuthModal from './AuthModal.vue';
 
 import MainNavigationItem from './MainNavigationItem.vue';
@@ -90,10 +101,15 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters(['getIsLogged']),
+  },
+
   methods: {
     toggleModal() {
       this.show = !this.show;
     },
+    ...mapActions(['logout']),
   },
 
 };

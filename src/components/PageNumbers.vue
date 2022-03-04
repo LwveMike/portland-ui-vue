@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      active: 1,
+      active: parseInt(this.$route.query.page, 10) || 1,
     };
   },
 

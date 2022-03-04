@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.26.0",
     "core-js": "^3.6.5",
+    "socket.io-client": "^4.4.1",
     "vue": "^2.6.11",
     "vue-awesome": "^4.5.0",
     "vue-easy-slider": "^5.3.4",

@@ -1,5 +1,6 @@
 <template>
   <div class="product simple size-s">
+    <slot />
     <img
       :src="product.url"
       class="img-content"
@@ -39,6 +40,7 @@ export default {
   overflow: hidden;
   background-color: $product-background;
   max-height: $product-maxheight;
+  position: relative;
 
   &.simple {
     display: flex;

@@ -5,18 +5,24 @@
     <HomeBody />
     <Reviews />
     <Footer />
-    <UserProfile />
+    <template v-if="getIsLogged">
+      <UserProfile />
+    </template>
   </div>
 </template>
 
 <script>
-import { apiFetchProductsWithFilters, apiFetchProducts, organize } from '../api';
+import { mapActions, mapGetters } from 'vuex';
+import {
+  apiFetchProductsWithFilters, apiFetchProducts, organize, socket,
+} from '../api';
 import Navigation from '../components/Navigation.vue';
 import Slider from '../components/Slider.vue';
 import HomeBody from '../components/HomeBody.vue';
 import Reviews from '../components/Reviews.vue';
 import Footer from '../components/Footer.vue';
 import UserProfile from '../components/UserProfile.vue';
+import SocketEvents from '../socketEvents';
 
 export default {
   name: 'Home',
@@ -33,7 +39,7 @@ export default {
     return {
       products: [],
       filters: {
-        sorting: 'ascending',
+        sorting: 'none',
         keywords: '',
         minprice: 0,
         maxprice: 9999,
@@ -44,6 +50,7 @@ export default {
       brands: new Map(),
       conditions: new Map(),
       pages: [],
+      hots: [],
     };
   },
 
@@ -74,6 +81,12 @@ export default {
       return this.pages;
     },
 
+    getHots() {
+      return this.hots;
+    },
+
+    ...mapGetters(['getIsLogged']),
+
   },
 
   watch: {
@@ -89,7 +102,9 @@ export default {
     },
 
     'filters.keywords': function () {
-      this.reload();
+      setTimeout(() => {
+        this.reload();
+      }, 200);
     },
 
     'filters.minprice': function () {
@@ -117,6 +132,24 @@ export default {
     this.generateBrands();
     this.generateConditions();
     this.generatePages();
+    this.generateHots();
+    this.assignAuthData();
+
+    socket.on(SocketEvents.GET_PRODUCT, (product) => {
+      this.products.unshift(product);
+    });
+
+    socket.on(SocketEvents.PRODUCT_DELETED, (productId) => {
+      const index = this.products.findIndex((product) => product.id === productId);
+      this.products.splice(index, 1);
+    });
+
+    socket.on(SocketEvents.PRODUCT_UPDATED, (product) => {
+      const index = this.products.findIndex((p) => p.id === product.id);
+      const oldArr = this.products;
+      oldArr[index] = product;
+      this.products = [...oldArr];
+    });
   },
 
   methods: {
@@ -157,6 +190,13 @@ export default {
       this.assignPages(pages);
     },
 
+    async generateHots() {
+      const products = await apiFetchProducts();
+      const hotProducts = products.filter((product) => product.hot === true);
+
+      this.assignHots(hotProducts);
+    },
+
     paginate(numberOfItems = 9, products = []) {
       let { page } = this.$route.query;
 
@@ -195,6 +235,10 @@ export default {
       this.pages = pages;
     },
 
+    assignHots(hots) {
+      this.hots = hots;
+    },
+
     changeSortingType(value) {
       this.filters.sorting = value;
     },
@@ -218,6 +262,8 @@ export default {
     changeType(value) {
       this.filters.type = value;
     },
+
+    ...mapActions(['assignAuthData']),
   },
 
   provide() {
@@ -235,6 +281,7 @@ export default {
       getBrands: () => this.getBrands,
       getConditions: () => this.getConditions,
       getPages: () => this.getPages,
+      getHots: () => this.getHots,
     };
   },
 

@@ -1,16 +1,24 @@
 import axios from 'axios';
 
-const pUrl = 'http://localhost:3000/products';
-const aUrl = 'http://localhost:3000/auth';
+import io from 'socket.io-client';
+import SocketEvents from './socketEvents';
+
+const baseUrl = 'http://localhost:3000';
+
+export const socket = io(baseUrl);
+
+const pUrl = `${baseUrl}/products`;
+const aUrl = `${baseUrl}/auth`;
+const upUrl = `${baseUrl}/users-products`;
 
 const descendingSort = (a, b) => {
   const dateA = new Date(a.createdAt);
   const dateB = new Date(b.createdAt);
 
   if (dateA > dateB) {
-    return 1;
-  } if (dateA < dateB) {
     return -1;
+  } if (dateA < dateB) {
+    return 1;
   }
   return 0;
 };
@@ -62,9 +70,9 @@ const apiFetchProducts = async () => {
 
 const apiFetchProductsWithFilters = async (filters) => {
   try {
-    const res = await axios.get(pUrl);
+    let products = await apiFetchProducts();
 
-    let products = res.data;
+    // let products = res.data;
 
     if (filters.sorting === 'ascending') {
       products.sort(ascendingPrice);
@@ -135,10 +143,12 @@ const apiLoginUser = async (payload) => {
     const res = await axios.post(`${aUrl}/login`, {
       username: payload.username,
       password: payload.password,
+    }, {
+      withCredentials: true,
     });
 
     if (res.data.fullfilled) {
-      return true;
+      return res.data;
     }
     return false;
   } catch (error) {
@@ -151,6 +161,8 @@ const apiRegisterUser = async (payload) => {
     const res = await axios.post(`${aUrl}/register`, {
       username: payload.username,
       password: payload.password,
+    }, {
+      withCredentials: true,
     });
 
     if (res.data.fullfilled) {
@@ -163,6 +175,57 @@ const apiRegisterUser = async (payload) => {
   }
 };
 
+const apiCreateProduct = async (product) => {
+  const res = await axios.post(upUrl, {
+    product,
+  }, {
+    withCredentials: true,
+  });
+
+  if (res.data.fullfilled) {
+    const productId = res.data.product.id.toString();
+    socket.emit(SocketEvents.CREATE_PRODUCT, { productId });
+  }
+
+  return res.data;
+};
+
+const apiLogout = async () => {
+  const res = await axios.delete(`${aUrl}/logout`, {
+    withCredentials: true,
+  });
+
+  console.log('logged out', res);
+};
+
+const apiUpdateProduct = async (payload) => {
+  const res = await axios.put(`${upUrl}/${payload.id}`, {
+    product: payload.product,
+  }, {
+    withCredentials: true,
+  });
+
+  if (res.data.fullfilled) {
+    const productId = res.data.product.id.toString();
+    socket.emit(SocketEvents.UPDATE_PRODUCT, { productId });
+    return res.data;
+  }
+  return false;
+};
+
+const apiDeleteProduct = async (payload) => {
+  const res = await axios.delete(`${upUrl}/${payload.id}`, {
+    withCredentials: true,
+  });
+
+  if (res.data.fullfilled) {
+    const { productId } = res.data;
+    socket.emit(SocketEvents.DELETE_PRODUCT, { productId });
+  }
+
+  return false;
+};
+
 export {
   apiFetchProducts,
   apiFetchResources,
@@ -171,4 +234,8 @@ export {
   apiRegisterUser,
   apiFetchProductsWithFilters,
   organize,
+  apiCreateProduct,
+  apiLogout,
+  apiUpdateProduct,
+  apiDeleteProduct,
 };

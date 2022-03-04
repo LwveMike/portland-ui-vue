@@ -1,5 +1,6 @@
 <template>
   <div class="product complicated size-s">
+    <slot />
     <div class="img-container">
       <img
         :src="product.url"
@@ -38,6 +39,7 @@ export default {
   overflow: hidden;
   background-color: $product-background;
   max-height: $product-maxheight;
+  position: relative;
 
   &.complicated {
 

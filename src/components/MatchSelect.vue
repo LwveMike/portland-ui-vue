@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       options: [
-        'ascending', 'descending',
+        'none', 'descending', 'ascending',
       ],
     };
   },

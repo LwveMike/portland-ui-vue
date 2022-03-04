@@ -4,7 +4,7 @@
       best sellers
     </p>
     <div class="recommended-products">
-      <template v-for="(product, index) in hot">
+      <template v-for="(product, index) in getComputedHots">
         <RecommendedProduct
           :key="index"
           :product="product"
@@ -20,18 +20,15 @@ import RecommendedProduct from './RecommendedProduct.vue';
 
 export default {
   name: 'RecommendedSection',
+  inject: ['getHots'],
   components: {
     RecommendedProduct,
   },
-  data() {
-    return {
-      hot: [{
-        name: 'sdfsd',
-        url: 'sfds',
-        price: 12,
 
-      }],
-    };
+  computed: {
+    getComputedHots() {
+      return this.getHots();
+    },
   },
 
 };

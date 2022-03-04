@@ -11,7 +11,7 @@
         >
           <div class="auth-modal-header">
             <p class="auth-modal-title">
-              Add a Product
+              Update a product
             </p>
 
             <div
@@ -32,7 +32,7 @@
               <div class="field">
                 <label for="username">Name :</label>
                 <input
-                  v-model="name"
+                  v-model="properties.name"
                   type="text"
                   class="input-special"
                 >
@@ -41,7 +41,7 @@
               <div class="field">
                 <label for="username">Description :</label>
                 <input
-                  v-model="description"
+                  v-model="properties.description"
                   type="text"
                   class="input-special"
                 >
@@ -52,7 +52,7 @@
               <div class="field">
                 <label for="username">Url :</label>
                 <input
-                  v-model="url"
+                  v-model="properties.url"
                   type="text"
                   class="input-special"
                 >
@@ -62,7 +62,7 @@
                 <div class="field">
                   <label for="username">Color :</label>
                   <input
-                    v-model="color"
+                    v-model="properties.color"
                     type="text"
                     class="input-special"
                   >
@@ -72,7 +72,7 @@
               <div class="field">
                 <label for="username">Price :</label>
                 <input
-                  v-model.number="price"
+                  v-model.number="properties.price"
                   type="number"
                   class="input-special"
                 >
@@ -82,7 +82,7 @@
               <div class="field">
                 <label for="username">Brand :</label>
                 <input
-                  v-model="brand"
+                  v-model="properties.brand"
                   type="text"
                   class="input-special"
                 >
@@ -91,7 +91,7 @@
               <div class="field">
                 <label for="username">Category :</label>
                 <input
-                  v-model="category"
+                  v-model="properties.category"
                   type="text"
                   class="input-special"
                 >
@@ -101,7 +101,7 @@
               <div class="field">
                 <label for="username">Shipment :</label>
                 <input
-                  v-model.number="shipment"
+                  v-model.number="properties.shipment"
                   type="number"
                   class="input-special"
                 >
@@ -110,7 +110,7 @@
               <div class="field">
                 <label for="username">Condition :</label>
                 <input
-                  v-model="condition"
+                  v-model="properties.condition"
                   type="text"
                   class="input-special"
                 >
@@ -121,7 +121,7 @@
               <div class="field">
                 <label for="username">Discount :</label>
                 <input
-                  v-model.number="discount"
+                  v-model.number="properties.discount"
                   type="text"
                   class="input-special"
                 >
@@ -130,7 +130,7 @@
               <div class="field">
                 <label for="username">Hot :</label>
                 <input
-                  v-model="hot"
+                  v-model="properties.hot"
                   type="text"
                   class="input-special"
                 >
@@ -141,7 +141,7 @@
               <div class="field">
                 <label for="username">Storage :</label>
                 <input
-                  v-model="storage"
+                  v-model="properties.storage"
                   type="text"
                   class="input-special"
                 >
@@ -151,9 +151,9 @@
             <div class="btn-group">
               <button
                 class="submit"
-                @click="createProduct"
+                @click="updateTheProduct"
               >
-                Create
+                Update
               </button>
 
               <button
@@ -174,7 +174,7 @@
 
 import Icon from 'vue-awesome/components/Icon';
 import 'vue-awesome/icons/times-circle';
-import { apiCreateProduct } from '../api';
+import { apiUpdateProduct } from '../api';
 
 const fromStringToBoolean = (str) => (str === 'true');
 
@@ -188,22 +188,28 @@ export default {
       type: Boolean,
       required: true,
     },
+    id: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
       which: true,
-      name: '',
-      description: '',
-      url: '',
-      color: '',
-      price: 0,
-      brand: '',
-      category: '',
-      shipment: 0,
-      condition: '',
-      discount: 0,
-      hot: false,
-      storage: '',
+      properties: {
+        name: '',
+        description: '',
+        url: '',
+        color: '',
+        price: -1,
+        brand: '',
+        category: '',
+        shipment: -1,
+        condition: '',
+        discount: -1,
+        hot: false,
+        storage: '',
+      },
 
     };
   },
@@ -213,21 +219,24 @@ export default {
       this.$emit('update:show', false);
     },
 
-    async createProduct() {
-      const data = await apiCreateProduct({
-        name: this.name,
-        description: this.description,
-        url: this.url,
-        color: this.color,
-        price: this.price,
-        brand: this.brand,
-        category: this.category,
-        shipment: this.shipment,
-        condition: this.condition,
-        discount: this.discount,
-        hot: fromStringToBoolean(this.hot),
-        storage: this.storage,
+    verify() {
+      const newProducts = {};
+
+      Object.entries(this.properties).forEach(([key, value]) => {
+        if (typeof value === 'string' && value !== '') {
+          newProducts[key] = value;
+        } else if (typeof value === 'number' && value !== -1) {
+          newProducts[key] = value;
+        } else if (typeof value === 'boolean' && value !== false) {
+          newProducts[key] = fromStringToBoolean(value);
+        }
       });
+
+      return newProducts;
+    },
+
+    async updateTheProduct() {
+      const data = await apiUpdateProduct({ product: this.verify(), id: this.id });
 
       if (data.fullfilled) {
         this.$emit('update:show', false);

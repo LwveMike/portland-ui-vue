@@ -1,5 +1,6 @@
 <template>
   <div class="product promoted size-m">
+    <slot />
     <div class="img-container">
       <img
         :src="product.url"
@@ -53,6 +54,7 @@ export default {
   overflow: hidden;
   background-color: $product-background;
   max-height: $product-maxheight;
+  position: relative;
 
   &.promoted {
     display: flex;

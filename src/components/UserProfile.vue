@@ -2,17 +2,17 @@
   <div class="user-profile">
     <div class="profile-field">
       <img
-        src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg"
+        :src="getUser.avatar"
         class="avatar"
       >
     </div>
     <div class="profile-field">
       <div class="profile-data">
         <p class="profile-name">
-          dsfasdf
+          {{ getUser.username }}
         </p>
         <p class="profile-role">
-          user
+          {{ getUser.id }}
         </p>
       </div>
     </div>
@@ -33,6 +33,7 @@
 
 import Icon from 'vue-awesome/components/Icon';
 import 'vue-awesome/icons/plus-square';
+import { mapGetters } from 'vuex';
 import AddProductForm from './AddProductForm.vue';
 
 export default {
@@ -45,6 +46,10 @@ export default {
     return {
       show: false,
     };
+  },
+
+  computed: {
+    ...mapGetters(['getUser']),
   },
 
 };
@@ -85,7 +90,7 @@ export default {
     .profile-data {
 
       color: white;
-      font-size: 2rem;
+      font-size: 1.6rem;
 
       display: flex;
       justify-content: center;
